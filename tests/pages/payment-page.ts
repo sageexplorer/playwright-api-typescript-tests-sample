@@ -1,5 +1,5 @@
 import { expect, type Page } from '@playwright/test';
-import type { Payment } from '../test-data';
+import type { Payment } from '../data/test-data';
 
 /** Payment form and order confirmation. */
 export class PaymentPage {

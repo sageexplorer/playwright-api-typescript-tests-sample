@@ -1,5 +1,5 @@
 import { expect, type Page } from '@playwright/test';
-import type { User } from '../test-data';
+import type { User } from '../data/test-data';
 
 /** Checkout page: address details and order review. */
 export class CheckoutPage {

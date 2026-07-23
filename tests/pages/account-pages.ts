@@ -1,5 +1,5 @@
 import { expect, type Page } from '@playwright/test';
-import type { User } from '../test-data';
+import type { User } from '../data/test-data';
 
 /** Combined signup and login page. */
 export class SignupLoginPage {

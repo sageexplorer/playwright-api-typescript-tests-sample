@@ -1,16 +1,16 @@
 import { test as base, expect } from '@playwright/test';
 import { randomUUID } from 'node:crypto';
-import { USER, type User } from './test-data';
-import { Header } from './pages/header';
-import { HomePage, ProductGrid } from './pages/home-page';
+import { USER, type User } from '../data/test-data';
+import { Header } from '../pages/header';
+import { HomePage, ProductGrid } from '../pages/home-page';
 import {
   AccountCreationPage,
   AccountDeletedPage,
   SignupLoginPage,
-} from './pages/account-pages';
-import { CartPage } from './pages/cart-page';
-import { CheckoutPage } from './pages/checkout-page';
-import { PaymentPage } from './pages/payment-page';
+} from '../pages/account-pages';
+import { CartPage } from '../pages/cart-page';
+import { CheckoutPage } from '../pages/checkout-page';
+import { PaymentPage } from '../pages/payment-page';
 
 // Third-party ad/consent hosts blocked at the network layer. The site is ad-funded;
 // left alone, ad requests slow every navigation, inject click-swallowing overlays,

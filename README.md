@@ -22,8 +22,10 @@ playwright.config.ts        base URL, timeouts, retries, trace/screenshot policy
 TEST_CASES.md               formal test cases mapping 1:1 onto the specs
 .github/workflows/tests.yml CI: runs the suite headless on every push
 tests/
-  test-data.ts              user and payment test data + types
-  fixtures.ts               ad blocking, unique user, cleanup, page-object injection
+  data/
+    test-data.ts            user and payment test data + types
+  fixtures/
+    fixtures.ts             ad blocking, unique user, cleanup, page-object injection
   pages/                    page objects: one small class per page/component
     header.ts  home-page.ts  account-pages.ts  cart-page.ts  checkout-page.ts  payment-page.ts
   place-order.spec.ts       Test 1 — UI end-to-end (TC15)
