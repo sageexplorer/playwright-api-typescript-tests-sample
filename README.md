@@ -21,15 +21,17 @@ Formal test cases (ID, priority, steps, expected results) are documented in
 playwright.config.ts        base URL, timeouts, retries, trace/screenshot policy
 TEST_CASES.md               formal test cases mapping 1:1 onto the specs
 .github/workflows/tests.yml CI: runs the suite headless on every push
-tests/
-  data/
-    test-data.ts            user and payment test data + types
-  fixtures/
-    fixtures.ts             ad blocking, unique user, cleanup, page-object injection
-  pages/                    page objects: one small class per page/component
-    header.ts  home-page.ts  account-pages.ts  cart-page.ts  checkout-page.ts  payment-page.ts
+pages/                      page objects: one small class per page/component
+  header.ts  home-page.ts  account-pages.ts  cart-page.ts  checkout-page.ts  payment-page.ts
+fixtures/
+  fixtures.ts               ad blocking, unique user, cleanup, page-object injection
+data/
+  test-data.ts              user and payment test data + types
+tests/                      specs only
   place-order.spec.ts       Test 1 — UI end-to-end (TC15)
   api.spec.ts               Test 2 — REST API checks
+standalone/
+  place-order.spec.ts       the same TC15 flow as one self-contained file (see standalone/README.md)
 ```
 
 ## Requirements
@@ -56,8 +58,8 @@ On failure, a screenshot and a Playwright trace are retained under
 ## Design choices and trade-offs
 
 **Page objects injected through fixtures.** Selectors and page interactions
-live in small page-object classes under `tests/pages/`; `fixtures.ts` extends
-Playwright's `test` so each spec receives ready-made page objects as
+live in small page-object classes under `pages/`; `fixtures/fixtures.ts`
+extends Playwright's `test` so each spec receives ready-made page objects as
 parameters. The test body reads as the official case's step list, selectors
 appear in exactly one place, and a DOM change is a one-file fix.
 
@@ -74,8 +76,8 @@ round-trips routinely exceed the 5-second default.
 
 **Third-party ads are blocked at the network layer.** The site is ad-funded;
 ad requests slow every navigation, inject click-swallowing overlays, and make
-runs nondeterministic. A route handler in `tests/fixtures.ts` aborts requests
-to known ad hosts. Trade-off: the page is never tested with ads present —
+runs nondeterministic. A route handler in `fixtures/fixtures.ts` aborts
+requests to known ad hosts. Trade-off: the page is never tested with ads present —
 acceptable, because the ads are third-party content, not functionality under
 test.
 

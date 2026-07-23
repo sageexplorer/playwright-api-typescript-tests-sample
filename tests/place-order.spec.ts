@@ -1,5 +1,5 @@
-import { test } from './fixtures/fixtures';
-import { PAYMENT } from './data/test-data';
+import { test } from '../fixtures/fixtures';
+import { PAYMENT } from '../data/test-data';
 
 // Site under test: https://automationexercise.com — Test Case 15: "Place Order: Register before Checkout".
 // Page objects are injected via fixtures.ts; see README for design notes.
