@@ -1,0 +1,15 @@
+{
+  "name": "automation-exercise-e2e",
+  "version": "1.0.0",
+  "description": "TypeScript/Playwright sample: UI e2e checkout flow (page objects via fixtures) + REST API checks against automationexercise.com",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}
