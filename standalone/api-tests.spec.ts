@@ -15,6 +15,7 @@ import { test, expect, APIResponse } from '@playwright/test';
 //
 // Self-contained file — no config or helper files needed.
 // Run: npm i -D @playwright/test && npx playwright test api-tests.spec.ts
+// Filter by tag: --grep @api / @smoke / @crud / @contract / @negative
 //
 // Contract quirk asserted deliberately throughout: this API's transport status
 // is always HTTP 200; the real outcome is the `responseCode` field inside the
@@ -77,12 +78,12 @@ const body = async (call: Promise<APIResponse>) => {
   return response.json();
 };
 
-test.describe('Automation Exercise REST API', () => {
+test.describe('Automation Exercise REST API', { tag: ['@api', '@smoke'] }, () => {
   // One account driven through its entire life. The pattern to note: no step
   // trusts the response of a write — creation is proven by a successful login,
   // the update by re-reading the profile, and deletion by the login failing
   // afterwards. A write that returns "success" but doesn't persist fails here.
-  test('account lifecycle: create → authenticate → read → update → delete', async ({ request }) => {
+  test('account lifecycle: create → authenticate → read → update → delete', { tag: '@crud' }, async ({ request }) => {
     test.setTimeout(60_000); // 8 sequential round-trips against a slow shared host
 
     // Always re-fetched, never cached — assertions run against real server state.
@@ -122,7 +123,7 @@ test.describe('Automation Exercise REST API', () => {
 
   // Contract check: shape over content. The catalogue's contents change freely;
   // the schema must not — and every record is validated, not just the first.
-  test('GET /productsList returns a well-formed catalogue', async ({ request }) => {
+  test('GET /productsList returns a well-formed catalogue', { tag: '@contract' }, async ({ request }) => {
     const catalogue = await body(request.get(`${BASE}/productsList`));
     expect(catalogue.responseCode).toBe(200);
     expect(catalogue.products.length).toBeGreaterThan(0);
@@ -143,7 +144,7 @@ test.describe('Automation Exercise REST API', () => {
 
   // Error paths are part of the contract too. Table-driven, so covering a new
   // failure mode is one added row, not a new test.
-  test('malformed requests fail with the documented error contract', async ({ request }) => {
+  test('malformed requests fail with the documented error contract', { tag: '@negative' }, async ({ request }) => {
     const cases: [string, () => Promise<APIResponse>, { responseCode: number; message: string }][] = [
       ['password omitted',
         () => request.post(`${BASE}/verifyLogin`, { form: { email: USER.email } }),
