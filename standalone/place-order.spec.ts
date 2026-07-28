@@ -53,7 +53,7 @@ test.beforeEach(({ page }) =>
   ),
 );
 
-test.describe('Place Order: Register before Checkout (Test Case 15)', () => {
+test.describe('Place Order: Register before Checkout (Test Case 15)', { tag: ['@ui', '@e2e'] }, () => {
   test('TC15 — end-to-end purchase flow', async ({ page }) => {
     test.setTimeout(120_000);
     const qa = (id: string) => page.locator(`[data-qa="${id}"]`);
@@ -122,3 +122,4 @@ test.describe('Place Order: Register before Checkout (Test Case 15)', () => {
     });
   });
 });
+
