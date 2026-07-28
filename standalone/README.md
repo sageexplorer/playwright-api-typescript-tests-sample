@@ -1,16 +1,23 @@
-# Standalone version
+# Standalone versions
 
-The same TC15 flow as a **single self-contained file** — no config, fixtures,
-page objects, or test data files. This is the version shared as the two-page
-work sample; everything the test needs is inlined so the whole implementation
-fits on one page.
+Two **single self-contained files** — no config, fixtures, page objects, or
+test data files. These are the versions shared as two-page work samples;
+everything each test needs is inlined so the whole implementation fits on one
+page.
 
-Run it on its own with nothing but Playwright installed:
+| File | What it is |
+| --- | --- |
+| `place-order.spec.ts` | UI end-to-end — the same TC15 purchase flow as the framework version |
+| `api-tests.spec.ts` | REST API — account lifecycle (CRUD), catalogue schema, and negative checks; no browser involved |
+
+Run either on its own with nothing but Playwright installed:
 
 ```bash
 npm i -D @playwright/test && npx playwright install chromium
 npx playwright test place-order.spec.ts
+npx playwright test api-tests.spec.ts     # API only — the browser isn't even launched
+npx playwright test --grep @smoke         # tag-filtered: @ui, @api, @crud, @contract, @negative
 ```
 
-(It is intentionally excluded from the main suite's `testDir`, so `npm test`
-at the repo root runs only the framework version under `tests/`.)
+(Both are intentionally excluded from the main suite's `testDir`, so `npm test`
+at the repo root runs only the framework versions under `tests/`.)
